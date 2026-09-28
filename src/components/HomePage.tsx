@@ -13,6 +13,8 @@ import DeliverySection from './DeliverySection';
 import ReferralSection from './ReferralSection';
 import GuaranteesSection from './GuaranteesSection';
 import ComparisonSection from './ComparisonSection';
+import FlashSale from './FlashSale';
+import BusinessSection from './BusinessSection';
 import Footer from './Footer';
 
 // Animated Stats Component
@@ -53,9 +55,22 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
 
   return (
     <main className="pt-20 sm:pt-24">
+      {/* Flash Sale Banner */}
+      <FlashSale />
+
       {/* Hero Section */}
       <section className="hero-gradient min-h-[90vh] flex items-center relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full">
+        {/* Background image overlay */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url('https://image.qwenlm.ai/generated-images/09bd0519-5be5-4b90-bdc3-144b5f073c39/_result.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundBlendMode: 'overlay'
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full relative">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="animate-fade-in-up">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f6ad55]/10 border border-[#f6ad55]/20 mb-6">
@@ -346,6 +361,9 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
 
       {/* Guarantees */}
       <GuaranteesSection />
+
+      {/* Business */}
+      <BusinessSection />
 
       {/* CTA */}
       <section className="py-20 sm:py-28">

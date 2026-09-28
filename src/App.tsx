@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import CabinetPage from './components/CabinetPage';
 import AuthModal from './components/AuthModal';
 import CartModal from './components/CartModal';
+import ChatWidget from './components/ChatWidget';
 import Particles from './components/Particles';
 
 function App() {
@@ -107,6 +108,8 @@ function App() {
           }}
         />
       )}
+
+      <ChatWidget />
     </div>
   );
 }

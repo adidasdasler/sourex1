@@ -1,8 +1,44 @@
 import { useState } from 'react';
 import { pricingPlans, brands } from '../data/mockData';
 import { CartItem } from '../types';
+import { useCountUp } from '../hooks/useAnimations';
 import SearchSection from './SearchSection';
+import SavingsCalculator from './SavingsCalculator';
+import TestimonialsCarousel from './TestimonialsCarousel';
+import FAQSection from './FAQSection';
+import LoyaltyProgram from './LoyaltyProgram';
+import TopProducts from './TopProducts';
+import PartnersSection from './PartnersSection';
+import DeliverySection from './DeliverySection';
+import ReferralSection from './ReferralSection';
+import GuaranteesSection from './GuaranteesSection';
+import ComparisonSection from './ComparisonSection';
 import Footer from './Footer';
+
+// Animated Stats Component
+function AnimatedStats() {
+  const [visible] = useState(true);
+  const savings = useCountUp(50, 2000, 0, visible);
+  const products = useCountUp(10, 1800, 0, visible);
+  const clients = useCountUp(15, 2200, 0, visible);
+
+  return (
+    <div className="grid grid-cols-3 gap-6 mt-12">
+      <div>
+        <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">{savings}%</div>
+        <div className="text-sm text-white/50">Экономия</div>
+      </div>
+      <div>
+        <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">{products}K+</div>
+        <div className="text-sm text-white/50">Запчастей</div>
+      </div>
+      <div>
+        <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">{clients}K+</div>
+        <div className="text-sm text-white/50">Клиентов</div>
+      </div>
+    </div>
+  );
+}
 
 interface HomePageProps {
   onLogin: () => void;
@@ -58,20 +94,7 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">50%</div>
-                  <div className="text-sm text-white/50">Экономия</div>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">10K+</div>
-                  <div className="text-sm text-white/50">Запчастей</div>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-[#f6ad55]">24/7</div>
-                  <div className="text-sm text-white/50">Поддержка</div>
-                </div>
-              </div>
+              <AnimatedStats />
             </div>
 
             {/* Hero Visual */}
@@ -138,6 +161,9 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
       {/* Search Section */}
       <SearchSection addToCart={addToCart} />
 
+      {/* Partners */}
+      <PartnersSection />
+
       {/* Features Section */}
       <section className="py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -193,6 +219,9 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
         </div>
       </section>
 
+      {/* Top Products */}
+      <TopProducts />
+
       {/* Brands Section */}
       <section className="py-20 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -211,6 +240,12 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
           </div>
         </div>
       </section>
+
+      {/* Savings Calculator */}
+      <SavingsCalculator />
+
+      {/* Testimonials */}
+      <TestimonialsCarousel />
 
       {/* Pricing Section */}
       <section className="py-20 sm:py-28">
@@ -268,6 +303,9 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
         </div>
       </section>
 
+      {/* Comparison */}
+      <ComparisonSection />
+
       {/* How it works */}
       <section className="py-20 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -293,6 +331,21 @@ export default function HomePage({ onLogin, onRegister, isLoggedIn, onGoToCabine
           </div>
         </div>
       </section>
+
+      {/* Delivery */}
+      <DeliverySection />
+
+      {/* Loyalty Program */}
+      <LoyaltyProgram />
+
+      {/* Referral */}
+      <ReferralSection />
+
+      {/* FAQ */}
+      <FAQSection />
+
+      {/* Guarantees */}
+      <GuaranteesSection />
 
       {/* CTA */}
       <section className="py-20 sm:py-28">

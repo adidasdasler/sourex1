@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Page, CabinetTab, User } from '../types';
 
 interface HeaderProps {
@@ -23,6 +24,8 @@ export default function Header({
   cartCount,
   onCartClick,
 }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0a1628]/80 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,19 +55,47 @@ export default function Header({
               Главная
             </button>
             {user && (
-              <button
-                onClick={() => {
-                  setCurrentPage('cabinet');
-                  setCabinetTab('orders');
-                }}
-                className={`text-sm font-medium transition-colors ${
-                  currentPage === 'cabinet' ? 'text-[#f6ad55]' : 'text-white/60 hover:text-white'
-                }`}
-              >
-                Мои заказы
-              </button>
+              <>
+                <button
+                  onClick={() => {
+                    setCurrentPage('cabinet');
+                    setCabinetTab('orders');
+                  }}
+                  className={`text-sm font-medium transition-colors ${
+                    currentPage === 'cabinet' ? 'text-[#f6ad55]' : 'text-white/60 hover:text-white'
+                  }`}
+                >
+                  Мои заказы
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentPage('cabinet');
+                    setCabinetTab('garage');
+                  }}
+                  className="text-sm font-medium text-white/60 hover:text-white transition-colors"
+                >
+                  Гараж
+                </button>
+              </>
             )}
+            <a href="#pricing" className="text-sm font-medium text-white/60 hover:text-white transition-colors">
+              Тарифы
+            </a>
           </nav>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+          >
+            <svg className="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
 
           {/* Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
@@ -128,6 +159,71 @@ export default function Header({
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-[#0a1628]/95 backdrop-blur-xl border-b border-white/5 animate-fade-in">
+          <div className="p-4 space-y-2">
+            <button
+              onClick={() => { setCurrentPage('home'); setMobileMenuOpen(false); }}
+              className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+            >
+              Главная
+            </button>
+            {user ? (
+              <>
+                <button
+                  onClick={() => { setCurrentPage('cabinet'); setCabinetTab('orders'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+                >
+                  Мои заказы
+                </button>
+                <button
+                  onClick={() => { setCurrentPage('cabinet'); setCabinetTab('garage'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+                >
+                  Гараж
+                </button>
+                <button
+                  onClick={() => { setCurrentPage('cabinet'); setCabinetTab('profile'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+                >
+                  Профиль
+                </button>
+                <button
+                  onClick={() => { setCurrentPage('cabinet'); setCabinetTab('subscription'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+                >
+                  Подписка
+                </button>
+                <div className="pt-2 border-t border-white/5">
+                  <button
+                    onClick={() => { onLogout(); setMobileMenuOpen(false); }}
+                    className="w-full text-left px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/5 transition-colors"
+                  >
+                    Выйти
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => { onLogin(); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 transition-colors"
+                >
+                  Войти
+                </button>
+                <button
+                  onClick={() => { onRegister(); setMobileMenuOpen(false); }}
+                  className="w-full btn-gradient py-3 text-center"
+                >
+                  Регистрация
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

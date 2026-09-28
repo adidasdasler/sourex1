@@ -61,11 +61,21 @@ export default function CabinetPage({ activeTab, setActiveTab, user }: CabinetPa
   );
 }
 
+// Achievements data
+const achievements = [
+  { id: 1, icon: '🎯', title: 'Первый заказ', description: 'Оформите первый заказ', unlocked: true, progress: 100 },
+  { id: 2, icon: '🔍', title: 'Исследователь', description: 'Выполните 10 поисков', unlocked: true, progress: 100 },
+  { id: 3, icon: '🚗', title: 'Автолюбитель', description: 'Добавьте авто в гараж', unlocked: true, progress: 100 },
+  { id: 4, icon: '💰', title: 'Экономист', description: 'Сэкономьте 10 000₽', unlocked: false, progress: 65 },
+  { id: 5, icon: '🏆', title: 'Эксперт', description: 'Оформите 30 заказов', unlocked: false, progress: 40 },
+  { id: 6, icon: '👥', title: 'Амбассадор', description: 'Пригласите 5 друзей', unlocked: false, progress: 20 },
+];
+
 // Profile Tab
 function ProfileTab({ user }: { user: User }) {
   return (
     <div className="grid lg:grid-cols-3 gap-6">
-      <div className="lg:col-span-1">
+      <div className="lg:col-span-1 space-y-4">
         <div className="glass-card p-6 text-center">
           <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#f6ad55] to-[#e67a2e] flex items-center justify-center">
             <span className="text-3xl font-bold text-[#0a1628]">{user.full_name.charAt(0)}</span>
@@ -75,6 +85,34 @@ function ProfileTab({ user }: { user: User }) {
           <div className="flex items-center justify-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#34d399]"></span>
             <span className="text-xs text-[#34d399]">Активен</span>
+          </div>
+        </div>
+
+        {/* Achievements */}
+        <div className="glass-card p-6">
+          <h4 className="font-semibold mb-4 flex items-center gap-2">
+            <span>🏆</span> Достижения
+          </h4>
+          <div className="grid grid-cols-3 gap-3">
+            {achievements.map((a) => (
+              <div
+                key={a.id}
+                className={`text-center p-2 rounded-xl transition-all ${
+                  a.unlocked ? 'bg-[#f6ad55]/10 border border-[#f6ad55]/20' : 'bg-white/5 opacity-50'
+                }`}
+                title={a.description}
+              >
+                <div className="text-xl mb-1">{a.icon}</div>
+                {!a.unlocked && (
+                  <div className="w-full h-1 rounded-full bg-white/10 mt-1">
+                    <div className="h-full rounded-full bg-[#f6ad55]" style={{ width: `${a.progress}%` }} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 text-xs text-white/40 text-center">
+            3 из 6 получено
           </div>
         </div>
       </div>
